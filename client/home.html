@@ -1,0 +1,16 @@
+<template name="home">
+	{{#if userLoggedIn}}
+		{{> summaryChart}}
+	{{else}}
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+					<div class="well well-lg">
+						<h2 align="center"> Please Log In </h2>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	{{/if}}
+</template>

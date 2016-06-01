@@ -1,0 +1,13 @@
+/* CSS declarations go here */
+hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #000000; /* Modern Browsers */
+}
+
+
+.datepicker{
+	z-index:1151 !important;
+}

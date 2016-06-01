@@ -1,0 +1,71 @@
+<template name='addExp'>
+	<h1>Add Expense</h1>
+	<div class="container">
+		<form id="add-date">
+    <div class="row">
+        <div class='col-sm-6'>
+            <label>Choose Date</label>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control test" data-DateTimePicker />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- the id="cat-value" is used by events to catch the selected Category-->
+            <label>Choose Category</label>
+            <select name="chosen_cat" class="form-control selected_cat" id="cat_value">
+                <option>Choose Category</option>
+                {{#each cat_list}}
+                <option>{{cate}}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <label>Choose Sub Category</label>
+            <!-- the id="cat-value" is used by events to catch the selected Category-->
+            <select name="chosen_cat" class="form-control selected_cat" id="subcat_value">
+                {{#if showSubcate}}
+                    {{#each subcat_list.subcate}}   
+                        <option>{{this}}</option>    
+                    {{/each}}
+                {{else}}
+                    <option>Please Select a Category first</option>
+                {{/if}}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+        <div class="form-group">
+            <label for="exampleInputName2">Add Comment</label>
+            <input type="text" name="comment_value" class="form-control" id="exampleInputName2" placeholder="Add Comment">
+        </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-xs-2">
+        <div class="form-group">
+            <label for="exampleInputName2">Add Expense</label>
+            <input type="text" name="expense_value" class="form-control" id="exampleInputName2" placeholder="Add Expense">
+        </div>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-xs-2">
+            <div class="form-group">
+                <button class="btn btn-success btn-block">Save Expenses</button>
+            </div>
+        </div>
+    </div>
+    
+</form>
+</div>
+</template>

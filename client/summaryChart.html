@@ -1,0 +1,242 @@
+<template name='summaryChart'>
+	<div class="container">
+		<div class="row">
+			<div class="page-header">
+				<h1>Summary Charts</h1>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="jumbotron">
+	  		<h2 class="text-center">Filters</h2>
+	  		<h3>Select to Filter Data</h3>
+	  		{{> filters}}
+		</div>
+		</div>
+		
+
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading text-center"><h2>Year Overview</h2></div>
+					<div class="panel-body">
+						<h3>These charts are only affected by the Date Filter</h3>
+						{{> yearTotalCharts}}
+					</div>
+			</div>		
+		</div>
+
+	
+		<div class="row">
+			<div class="panel panel-info">
+				<div class="panel-heading"><h2 class="text-center">Aggregated Results</h2></div>
+				<div class="panel-body">
+				{{> filteredCharts}}
+				<div class="table-responsive">
+					<table class="table table-hover table-striped">
+						<thead>
+							<tr>
+				  				<th>Category</th>
+				  				<th>Sub Category</th>
+				  				<th>Total</th>
+			  				</tr>	
+						</thead>
+						<tbody>
+							{{#each totalSum}}
+								<tr>
+									<td>{{cate}}</td>
+									<td>{{subcate}}</td>
+									<td>{{total}}</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+				</div>
+		</div>
+		</div>
+	
+	
+			{{> bulkEdit}}
+			{{> detailExp }}
+	</div> <!-- End of Container div -->
+</template>
+
+<template name="detailExp">
+
+        {{> tabular table=TabularTables.Expenses selector=selector class="table table-striped table-responsive"}}
+
+</template>
+
+<template name="checkBoxes">
+<!-- <tr class="{{#if checked}} danger {{/if}}"> -->
+	
+	<input type="checkbox" checked={{#if item.checked}}"checked"{{/if}} class="toggle-checked" />
+	
+	
+</template>
+
+<template name="upDelexp">
+	<button id="btn_edit_exp" type="button" class="btn btn-sm btn-default"  data-toggle="modal" data-target="#updateModal">
+
+		<span class="glyphicon glyphicon-pencil"></span>
+
+	</button>
+	<!-- <a href="#"><span class="glyphicon glyphicon-edit js_edit_exp" data-toggle="modal" data-target="#myModal3" aria-hidden="true"></span></a> -->
+	<button id="btn_del_exp" type="button" class="btn btn-sm btn-default"  data-toggle="modal" data-target="#removeModal">
+
+		<span class="glyphicon glyphicon-trash" style="color:#FF91A4"></span>
+
+	</button>
+	<!-- <a href="#"><span class="glyphicon glyphicon-trash"  aria-hidden="true"></span></a> -->
+	<!-- Update Modal -->
+					<div id="updateModal" class="modal fade" tabindex="-1" role="dialog">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" >Update Selected Expense</h4>
+					      </div>
+					      
+					     	{{> editingExpenses}}
+
+					    </div>
+					  </div>
+					</div>
+
+	<!-- Remove Modal -->
+					<div id="removeModal" class="modal fade" tabindex="-1" role="dialog">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" >Delete Selected Expense</h4>
+					      </div>
+					      <div class="modal-body">
+					      <p>These actions cannot be undone</p>
+					      <p>Are you sure you want to delete this expense?</p>
+					      </div>
+					      <div class="modal-footer">
+					      	<button type="button" class="btn btn-danger js_del_exp">Delete</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+</template>
+
+<template name="filters">
+	<div class="row">
+		<div class='col-sm-4'>
+			<form data-filter id="filters_date">
+            <div class="form-group">
+            	<label>Choose Date</label>
+                <div class='input-group date' id='datetimepicker3'>
+                    <input type='text' class="form-control test" data-DateTimePicker />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            </form>
+        </div>
+		<div class="col-xs-4">
+			<label>Choose Category</label>
+			<select data-filter name="filters_chosen_cat" class="form-control filters_get_filter_cat" id="filters_cat_value">
+				<option selected="selected">ALL</option>
+				{{#each category_list}}
+					<option>{{cate}}</option>	
+				{{/each}}
+    		</select>
+		</div>
+		<div class="col-xs-4">
+			<label>Choose Sub-Category</label>
+			<select data-filter name="filters_chosen_subcat" class="form-control filters_get_filter_subcat" id="filters_subcat_value">
+				{{#if allCat}}
+				<option>All Categories Selected</option>
+				{{else}}
+					<option>ALL</option>
+					{{#each subcategory_list 'filters_cat_value'}}
+						<option>{{this}}</option>	
+					{{/each}}
+				{{/if}}
+				
+    		</select>
+		</div>
+
+
+	</div>
+		
+</template>
+
+<template name="filteredCharts">
+	{{> highchartsHelper chartId="pie1" chartWidth="100%" charHeight="100%" chartObject=topGenresChart1}}
+</template>
+
+<template name="yearTotalCharts">
+	{{> highchartsHelper chartId="col1" chartWidth="100%" charHeight="100%" chartObject=topGenresChart2}}
+</template>
+
+
+<template name="editingExpenses">
+<div class="modal-body">
+
+<!-- <div class='input-group date' id='datetimepicker2'>
+                    <input type='text' class="form-control test selected_date" data-DateTimePicker/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div> -->
+	{{#with exp_entry}}
+	<form id="add-date">
+
+    <div class="row">
+        <div class="col-xs-6">
+            <!-- the id="cat-value" is used by events to catch the selected Category-->
+            <label>Choose Category</label>
+            <select name="chosen_cat" class="form-control selected_cat" id="cat_value">
+									{{#if nullCate}}
+										<option>Choose a Category</option>
+									{{/if}}
+                					{{#each cat_list}}
+	            						<option selected="{{#if checkCat cate}}selected{{/if}}">{{cate}}</option>	
+                					{{/each}}
+            					</select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <label>Choose Sub Category</label>
+            <!-- the id="cat-value" is used by events to catch the selected Category-->
+            <select name="chosen_subcat" class="form-control selected_subcat" id="subcat_value">
+                					{{#each subcat_list.subcate}}
+	            						<option selected="{{#if checkSubcat this}}selected{{/if}}">{{this}}</option>	
+                					{{/each}}
+            					</select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+        <div class="form-group">
+            <label for="exampleInputName2">Add Comment</label>
+            <input type="text" name="comment" class="form-control"  value={{exp_entry.comment}}>
+        </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-xs-2">
+        <div class="form-group">
+            <label for="exampleInputName2">Add Expense</label>
+            <input type="text" name="expense_value" class="form-control"  value={{exp_entry.expense}}>
+        </div>
+        </div>
+    </div>    
+    
+</form>
+{{/with}}
+</div> <!-- end of modal-body -->
+					      <div class="modal-footer">
+					      	<button type="button" class="btn btn-danger js_save_editExp">Update</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					      </div>
+</template>

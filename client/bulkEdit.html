@@ -1,0 +1,82 @@
+<template name="bulkEdit">
+	<div class="row">
+			<div class="panel panel-info">
+				<div class="panel-heading"><h2 class="text-center">Detail Results</h2></div>
+				<div class="panel-body">
+					<button id="bulk_upd_exp" type="button" class="btn btn-sm btn-default"  data-toggle="modal" data-target="#bulkUpdModal">
+						Bulk Update Expenses
+					</button>
+
+					<button id="bulk_del_exp" type="button" class="btn btn-sm btn-danger"  data-toggle="modal" data-target="#bulkDelModal">
+						Bulk Delete Expenses
+					</button>
+
+					<!-- Update Modal -->
+					<div id="bulkUpdModal" class="modal fade" tabindex="-1" role="dialog">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" >Bulk Update Selected Expenses</h4>
+					      </div>
+					      <div class="modal-body">
+					      	
+					      
+					      <p>These actions cannot be undone</p>
+					      <p>Are you sure you want to delete this expense?</p>
+					      
+					      <label>Choose Category</label>
+							<select data-bulkEdit name="filters_chosen_cat" class="form-control bulkEdit_get_cat" id="bulkEdit_cat_value">
+								<option>Select a Category</option>
+								{{#each category_list}}
+									<option>{{cate}}</option>	
+								{{/each}}
+							</select>
+							
+							
+			<label>Choose Sub-Category</label>
+			<select data-bulkEdit name="bulkEdit_chosen_subcat" class="form-control bulkEdit_get_subcat" id="bulkEdit_subcat_value">
+					<option>Select a SubCategory</option>
+					{{#each subcategory_list_bulk 'bulkedit_cat_value'}}
+						<option>{{this}}</option>	
+					{{/each}}
+	
+				
+    		</select>
+		
+					      </div>
+					      
+					     <div class="modal-footer">
+					      	<button type="button" class="btn btn-danger js_save_bulkeditExp">Update</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+
+	<!-- Remove Modal -->
+					<div id="bulkDelModal" class="modal fade" tabindex="-1" role="dialog">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" >Bulk Delete Selected Expenses</h4>
+					      </div>
+					      <div class="modal-body">
+					      <p>These actions cannot be undone</p>
+					      <p>Are you sure you want to delete this expense?</p>
+					      </div>
+					      <div class="modal-footer">
+					      	<button type="button" class="btn btn-danger js_bulkdel_exp">Delete</button>
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>	
+
+				
+
+				</div>
+				</div>
+			</div>
+</template>
