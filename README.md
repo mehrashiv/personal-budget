@@ -34,5 +34,6 @@ The following instructions are for Ubuntu/OSX
     meteor
 
 ## References
-* [Meteor](https://www.meteor.com)
+* [Official Meteor Site](https://www.meteor.com)
 * [The Meteor Chef](https://themeteorchef.com)
+* [Official MongoDB Site](https://www.mongodb.com)
