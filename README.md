@@ -14,9 +14,9 @@ All expenses and categories entered are stamped with the user ID so a user can o
 * Manually add expenses
 * Upload a CSV file for expenses - For example download your credit card expenses and format it as required
 * Filter all expenses based on Year, Category and Sub-Category - For example visualize all expenses for 2016 in a Pie Chart and tabular format
-* View all expense categories in a bar chart (comparison across months) 
+* View all expenses (by categories) in a bar chart (comparison across months) 
 * Search the tabular data for specific expenses
-* Delte or edit a specific expense
+* Delet or edit a specific expense
 * Bulk delete expenses
 * Bulk edit the Category and Sub-Category of expenses
 
