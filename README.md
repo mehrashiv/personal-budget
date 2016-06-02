@@ -20,6 +20,19 @@ The app is multi-tenant and all expenses and categories entered are stamped with
 * Bulk delete expenses
 * Bulk edit the Category and Sub-Category of expenses
 
+## Getting Started
+The following instructions are for Ubuntu/OSX
+#### Install Meteor
+    curl https://install.meteor.com/ | sh
+#### Install git
+    sudo apt-get install git
+#### Pull the code from GitHub
+    mkdir personal-budget
+    cd personal-budget/
+    git init
+    git pull https://github.com/mehrashiv/personal-budget.git
+    meteor
+
 ## References
 * [Meteor](https://www.meteor.com)
 * [The Meteor Chef](https://themeteorchef.com)
