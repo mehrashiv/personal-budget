@@ -6,7 +6,7 @@ This is my first attempt at creating a full-fledged app. Please use this app at 
 * It is designed to keep track of all your expenses
 * Displays pie and bar charts for all expense categories and subcategories.
 
-The app is multi-tenant and all expenses and categories entered are stamped with the user ID so a user can only view data that belongs to that user.
+All expenses and categories entered are stamped with the user ID so a user can only view his/her data.
 
 ## What features does this app support?
 * Create an account - The Navigation Menu is not displayed unless a user is logged in
