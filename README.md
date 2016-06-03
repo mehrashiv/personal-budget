@@ -6,7 +6,7 @@ This is my first attempt at creating a full-fledged app. Please use this app at 
 * It is designed to keep track of all your expenses
 * Displays pie and bar charts for all expense categories and subcategories.
 
-The app is multi-tenant and all expenses and categories entered are stamped with the user ID so a user can only view data that belongs to that user.
+All expenses and categories entered are stamped with the user ID so a user can only view his/her data.
 
 ## What features does this app support?
 * Create an account - The Navigation Menu is not displayed unless a user is logged in
@@ -14,12 +14,26 @@ The app is multi-tenant and all expenses and categories entered are stamped with
 * Manually add expenses
 * Upload a CSV file for expenses - For example download your credit card expenses and format it as required
 * Filter all expenses based on Year, Category and Sub-Category - For example visualize all expenses for 2016 in a Pie Chart and tabular format
-* View all expense categories in a bar chart (comparison across months) 
+* View all expenses (by categories) in a bar chart (comparison across months) 
 * Search the tabular data for specific expenses
-* Delte or edit a specific expense
+* Delet or edit a specific expense
 * Bulk delete expenses
 * Bulk edit the Category and Sub-Category of expenses
 
+## Getting Started
+The following instructions are for Ubuntu/OSX
+#### Install Meteor
+    curl https://install.meteor.com/ | sh
+#### Install git
+    sudo apt-get install git
+#### Pull the code from GitHub
+    mkdir personal-budget
+    cd personal-budget/
+    git init
+    git pull https://github.com/mehrashiv/personal-budget.git
+    meteor
+
 ## References
-* [Meteor](https://www.meteor.com)
+* [Official Meteor Site](https://www.meteor.com)
 * [The Meteor Chef](https://themeteorchef.com)
+* [Official MongoDB Site](https://www.mongodb.com)
