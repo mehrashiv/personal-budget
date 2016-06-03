@@ -38,7 +38,7 @@
 		}
 
 		// We use Mongo aggregation to aggregat the data
-		totals = Expenses.aggregate([{$match: filter1},{$group: group}]);
+		totals = Expenses.aggregate([{$match: filter1},{$group: group}, {$sort:{total:-1}}]);
 		// The _id filed is an objecct. The following code creates a new object with cate, subcate and total fields
 		totalList = []
 		_(totals).each(function(total) {
