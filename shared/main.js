@@ -2,9 +2,9 @@ TabularTables = {};
 
 TabularTables.Expenses = new Tabular.Table({
   name: "Expenses",
+  collection: Expenses,
   responsive:true,
   autoWidth:false,
-  collection: Expenses,
   columns: [
     {data: "checked", title: "Checked", visible: false},
     {tmpl: Meteor.isClient && Template.checkBoxes,title:'Select',class: "col-md-1",

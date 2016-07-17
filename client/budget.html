@@ -3,16 +3,21 @@
   <title>Budget</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-	<!-- Check if user is logged In -->
-	{{#if userLoggedIn}}
-		<!-- If Logged In then show them all details applicabe to their username -->
-    	{{> yield "header"}}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- Check if user is logged In -->
+            {{#if userLoggedIn}}
+                <!-- If Logged In then show them all details applicabe to their username -->
+                {{> yield "header"}}
 
-    	{{> yield "main"}}
-    {{else}}
-    	<!-- If user is NOT logged In then only show header and the body show an error message. The header will also only show the logo no other tabs. See navbar.html -->
-    	{{> yield "header"}}
-    	{{> home}}
-    {{/if}}
-
+                {{> yield "main"}}
+            {{else}}
+                <!-- If user is NOT logged In then only show header and the body show an error message. The header will also only show the logo no other tabs. See navbar.html -->
+                {{> yield "header"}}
+                {{> home}}
+            {{/if}}
+        </div>
+    </div>
+</div>
 </template>
