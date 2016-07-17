@@ -2,6 +2,8 @@ TabularTables = {};
 
 TabularTables.Expenses = new Tabular.Table({
   name: "Expenses",
+  responsive:true,
+  autoWidth:false,
   collection: Expenses,
   columns: [
     {data: "checked", title: "Checked", visible: false},
