@@ -219,6 +219,50 @@
     	
     }, // end of yearSnapshot:function(filter)
 
+monthSnapshot:function(filter,userid) {
+    	if (userid == Meteor.userId()) {
+    		// For charting data across months Jan thru Dec we structure the data in a specific format and put it in a new Collection called Total
+		// Step 1: We gather all the categories
+		//match_date = user:Meteor.userId(), date:
+		//{user:Meteor.userId(), date:{$gte: new Date(filter.date),$lt: new Date(moment(filter.date).add(1,'y').format('ddd MMM DD YYYY h:mm:ss ZZ z'))},cate:cate.cate}
+		match_criteria = {
+			user:Meteor.userId(),
+			date:{$gte: new Date(filter.date),$lt: new Date(moment(filter.date).add(1,'y').format('ddd MMM DD YYYY h:mm:ss ZZ z'))},
+		}
+		// Step 2: We define month names to numbers mapping since our aggrgation returns month numbers
+		months = {1:'Jan', 2:'Feb', 3:'Mar', 4:'Apr', 5:'May',6:'Jun',7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'}
+
+		// Dump the database and re-calculate to ensure new data is reflected
+		// Loop through each category (filter) and get the aggregated result for a category for every month in a year
+		total1 = new Array()
+			
+				totalMonth1 = Expenses.aggregate([{$match: {user:Meteor.userId(), date:{$gte: new Date(filter.date),$lt: new Date(moment(filter.date).add(1,'y').format('ddd MMM DD YYYY h:mm:ss ZZ z'))}}},{$group: {_id: {month: {$month: "$date"}}, total: {$sum:"$expense"}}}])
+			// Map the month id to the total value for the category
+			totalArray = {}
+			_(totalMonth1).each(function(tot) {
+				
+				for (monId in months) {
+					 if (monId == tot._id.month) {
+					 	totalArray[monId] = tot.total
+				} // enf of for monId			
+		}
+		}) // end of _totalMonth function
+		// Create an array of 12 values. Each position in the array reflects the total for that month. Required by Highcharts for column graphs
+		b = []
+		for (i =1; i <=12; i++) { if (totalArray[i] == undefined ) {totalArray[i]=0} b.push(totalArray[i])  }
+		// For every category insert the category name and the new array created. The words name and data are for imp. highchart looks for those names
+		monthTotal = [{
+			name:"Monthly Total Expenditure",
+			data:b,
+		}]
+		
+		
+		
+			
+    	}
+    	return monthTotal
+    	
+    }, // end of monthSnapshot:function(filter)
 
     updateExpenseCat:function(cate,subcate) {
     	ids = Expenses.find({checked:true}).fetch()

@@ -48,6 +48,7 @@ Session.setDefault("showSubcate", false);
 Session.setDefault('selected_date',null);
 Session.setDefault('totalSum',null);
 Session.setDefault('yearSnapshot',null);
+Session.setDefault('monthSnapshot',null);
 Session.setDefault('uploading',false);
 Session.set('nullCate',false);
 Session.setDefault('filters_cat_value','ALL')
@@ -85,6 +86,8 @@ Template.summaryChart.rendered = function () {
 	$('#datetimepicker3').datetimepicker({ format: 'YYYY', defaultDate:Session.get('filters_date') });
 	fetchdata({date: Session.get('filters_date'), cate:'ALL', subcate:'ALL'})
 	ySnapshot({date: Session.get('filters_date'), cate:'ALL', subcate:'ALL'})
+	mSnapshot({date: Session.get('filters_date'), cate:'ALL', subcate:'ALL'})
+
 	//$('#datetimepicker2').datetimepicker({ format: 'MM/DD/YYYY',defaultDate:Session.get('selected_date') });
 }
 
@@ -345,7 +348,89 @@ topGenresChart2:function() {
 }, // end of topGenresChart2
 }) // end of Template.yearTotalCharts.helpers
 
- 
+Template.monthTotalCharts.helpers({
+topGenresChart3:function() {
+	return {
+		chart: {
+            type: 'column',
+            //borderWidth:1,
+            //borderColor:'#FF8300'
+        },
+        
+        title: {
+            text: 'Monthly Total Snapshot'
+        },
+        
+        subtitle: {
+            text: 'Snapshot of Monthly Budget'
+        },
+        
+        credits: {
+            enabled: false
+        },
+        
+        xAxis: {
+            categories: [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+            ]
+        },
+        
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Expenses ($)'
+            }
+        },
+        
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>${point.y:.1f}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        
+        series: Session.get('monthSnapshot')
+        // [{
+        //     name: 'Tokyo',
+        //     data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+
+        // }, {
+        //     name: 'New York',
+        //     data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+
+        // }, {
+        //     name: 'London',
+        //     data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+
+        // }, {
+        //     name: 'Berlin',
+        //     data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+
+        // }]
+   
+	} // end of return
+}, // end of topGenresChart3
+}) // end of Template.monthTotalCharts.helpers
 
 //////////////////////////////
 /////////// EVENTS ///////////
@@ -464,6 +549,7 @@ Template.summaryChart.events({
 				tpl.$('#myModal').modal('hide')
 				fetchdata({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')});
 				ySnapshot({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')});
+				mSnapshot({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')});
 
 
 			}
@@ -498,6 +584,7 @@ Template.upDelexp.events({
 				tpl.$('#removeModal').modal('hide')
 				fetchdata({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')});
 				ySnapshot({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')});
+				mSnapshot({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')});
 
 
 			}
@@ -543,6 +630,7 @@ Template.editingExpenses.events({
 		Session.set('editExpid',null);
 		fetchdata({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')});
 		ySnapshot({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')}); 
+		mSnapshot({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'),subcate:Session.get('filters_subcat_value')}); 
 		$('#updateModal').modal('hide')
 	}, // end of click .js_save_editExp
 	"change .selected_cat":function(evt,tpl) {
@@ -592,6 +680,8 @@ Template.filters.events({
 		Session.set('search_value',null)
 		fetchdata({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'), subcate:Session.get('filters_subcat_value')})
 		ySnapshot({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'), subcate:Session.get('filters_subcat_value')})
+		mSnapshot({date: Session.get('filters_date'), cate:Session.get('filters_cat_value'), subcate:Session.get('filters_subcat_value')})
+
 	}, // end fof dp.change [data-filter]
 	"change [data-filter]":function(evt,tpl) {
 		Session.set('search_value',null)
@@ -699,4 +789,13 @@ ySnapshot = function (filters) {
 	
 } // end of function ySnapshot (filters)
 
-
+mSnapshot = function (filters) {
+	Meteor.call('monthSnapshot', filters, Meteor.userId(), function (err,res){
+		if (err) {
+			Bert.alert(err.reason, 'warning')
+		}
+		else
+			Session.set('monthSnapshot', res)
+	}) // end of Meteor.call
+	
+} // end of function mSnapshot (filters)

@@ -59,6 +59,12 @@
 	
 			{{> bulkEdit}}
 			{{> detailExp }}
+			<div class="panel panel-primary">
+				<div class="panel-heading text-center"><h2>Monthly Total</h2></div>
+					<div class="panel-body">
+						{{> monthTotalCharts}}
+					</div>
+			</div>
 	</div> <!-- End of Container div -->
 </template>
 
@@ -175,6 +181,10 @@
 
 <template name="yearTotalCharts">
 	{{> highchartsHelper chartId="col1" chartWidth="100%" charHeight="100%" chartObject=topGenresChart2}}
+</template>
+
+<template name="monthTotalCharts">
+	{{> highchartsHelper chartId="col2" chartWidth="100%" charHeight="100%" chartObject=topGenresChart3}}
 </template>
 
 
